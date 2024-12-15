@@ -11,6 +11,8 @@ Book.prototype.info = function(){
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead}`;
 }
 
-function addBookToLibrary(){
+function addBookToLibrary(title, author, pages, isRead){
+    const book = new Book(title, author, pages, isRead);
 
+    myLibrary.push(book);
 }
