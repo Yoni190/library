@@ -1,7 +1,10 @@
 const main = document.querySelector('.main');
 const addButton = document.querySelector('.addButton');
+const showDialog = document.querySelector('.show-add-dialog');
+const closeButton = document.querySelector('.close');
+const dialog = document.querySelector('dialog');
 
-const myLibrary = [bookTest];
+const myLibrary = [];
 
 function Book(title, author, pages, isRead){
     this.title = title;
@@ -17,6 +20,9 @@ function addBookToLibrary(title, author, pages, isRead){
 }
 
 function displayBookInfo(){
+    while(main.firstChild){
+        main.removeChild(main.firstChild);
+    }
     for(i = 0; i < myLibrary.length; i++){
         const card = document.createElement('div');
         const title = document.createElement('p');
@@ -36,9 +42,17 @@ function displayBookInfo(){
         card.appendChild(isRead);
         main.appendChild(card);
 
-        console.log(myLibrary[i].title);
+        console.log(myLibrary);
     }
 }
+
+closeButton.addEventListener('click', ()=>{
+    dialog.close();
+});
+
+showDialog.addEventListener('click', ()=>{
+    dialog.showModal();
+});
 
 addButton.addEventListener('click', ()=>{
     const title = document.querySelector('#title').value;
@@ -48,5 +62,6 @@ addButton.addEventListener('click', ()=>{
     console.log(isRead);
 
     addBookToLibrary(title, author, pages, isRead);
+    dialog.close();
     displayBookInfo();
 });
