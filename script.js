@@ -1,9 +1,16 @@
-const main = document.querySelector('.main');
+const cards = document.querySelector('.cards');
 const addButton = document.querySelector('.addButton');
 const showDialog = document.querySelector('.show-add-dialog');
 const closeButton = document.querySelector('.close');
 const dialog = document.querySelector('dialog');
 const inputs = document.querySelectorAll('input');
+
+const titleLabel = document.createElement('p')
+titleLabel.textContent = 'Title: ';
+const authorLabel = document.createElement('p');
+authorLabel.textContent = 'Author: ';
+const pageLabel = document.createElement('p');
+pageLabel.textContent = 'Pages: ';
 
 const myLibrary = [];
 
@@ -21,12 +28,16 @@ function addBookToLibrary(title, author, pages, isRead){
 }
 
 function displayBookInfo(){
-    while(main.firstChild){
-        main.removeChild(main.firstChild);
+    while(cards.firstChild){
+        cards.removeChild(cards.firstChild);
     }
     for(i = 0; i < myLibrary.length; i++){
+        const index = i;
+
         const card = document.createElement('div');
         card.className = 'card';
+
+        
 
         const title = document.createElement('p');
         title.textContent = myLibrary[i].title;
@@ -41,7 +52,12 @@ function displayBookInfo(){
         isRead.innerHTML = myLibrary[i].isRead ? "Not Read" : 'Read'; 
         isRead.className = 'read';
 
-        const index = i;
+        isRead.addEventListener('click', ()=>{
+            isRead.innerHTML = isRead.innerHTML == 'Read' ? "Not Read" : 'Read';
+            myLibrary[index].isRead = isRead.innerHTML;
+        });
+
+
 
         const removeButton = document.createElement('button');
         removeButton.addEventListener('click', ()=>{
@@ -51,19 +67,23 @@ function displayBookInfo(){
 
         removeButton.innerHTML = "Remove Book";
         
-
+        card.appendChild(titleLabel);
         card.appendChild(title);
+        card.appendChild(authorLabel);
         card.appendChild(author);
+        card.appendChild(pageLabel);
         card.appendChild(pages);
         card.appendChild(isRead);
         card.appendChild(removeButton);
-        main.appendChild(card);
+        cards.appendChild(card);
 
-        console.log(myLibrary);
     }
 }
 
 closeButton.addEventListener('click', ()=>{
+    inputs.forEach((input)=>{
+        input.value = '';
+    })
     dialog.close();
 });
 
