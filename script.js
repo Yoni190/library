@@ -5,12 +5,7 @@ const closeButton = document.querySelector('.close');
 const dialog = document.querySelector('dialog');
 const inputs = document.querySelectorAll('input');
 
-const titleLabel = document.createElement('p')
-titleLabel.textContent = 'Title: ';
-const authorLabel = document.createElement('p');
-authorLabel.textContent = 'Author: ';
-const pageLabel = document.createElement('p');
-pageLabel.textContent = 'Pages: ';
+
 
 const myLibrary = [];
 
@@ -33,6 +28,14 @@ function displayBookInfo(){
     }
     for(i = 0; i < myLibrary.length; i++){
         const index = i;
+        const titleLabel = document.createElement('p')
+        titleLabel.textContent = 'Title: ';
+        const authorLabel = document.createElement('p');
+        authorLabel.textContent = 'Author: ';
+        const pageLabel = document.createElement('p');
+        pageLabel.textContent = 'Pages: ';
+        const readLabel = document.createElement('p');
+        readLabel.textContent = 'Read Status';
 
         const card = document.createElement('div');
         card.className = 'card';
@@ -48,13 +51,17 @@ function displayBookInfo(){
         const pages = document.createElement('p');
         pages.textContent = myLibrary[i].pages;
 
-        const isRead = document.createElement('button');
-        isRead.innerHTML = myLibrary[i].isRead ? "Not Read" : 'Read'; 
-        isRead.className = 'read';
+        const readStatus = document.createElement('p');
+        readStatus.textContent = myLibrary[i].isRead ? 'Read' : "Not Read";
 
-        isRead.addEventListener('click', ()=>{
-            isRead.innerHTML = isRead.innerHTML == 'Read' ? "Not Read" : 'Read';
-            myLibrary[index].isRead = isRead.innerHTML;
+        const isReadButton = document.createElement('button');
+        isReadButton.innerHTML = myLibrary[i].isRead ? "Not Read" : 'Read'; 
+        isReadButton.className = 'read';
+
+        isReadButton.addEventListener('click', ()=>{
+            isReadButton.innerHTML = isReadButton.innerHTML == 'Read' ? "Not Read" : 'Read';
+            myLibrary[index].isRead = isReadButton.innerHTML == 'Read' ? true : false;
+            readStatus.textContent = myLibrary[index].isRead ? "Not Read" : 'Read';
         });
 
 
@@ -73,7 +80,9 @@ function displayBookInfo(){
         card.appendChild(author);
         card.appendChild(pageLabel);
         card.appendChild(pages);
-        card.appendChild(isRead);
+        card.appendChild(readLabel);
+        card.appendChild(readStatus);
+        card.appendChild(isReadButton);
         card.appendChild(removeButton);
         cards.appendChild(card);
 
