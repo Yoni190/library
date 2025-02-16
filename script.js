@@ -9,11 +9,41 @@ const inputs = document.querySelectorAll('input');
 
 const myLibrary = [];
 
-function Book(title, author, pages, isRead){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead;
+// function Book(title, author, pages, isRead){
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.isRead = isRead;
+// }
+
+class Book {
+    #title;
+    #author;
+    #pages;
+    #isRead;
+
+    constructor(title, author, pages, isRead){
+        this.#title = title;
+        this.#author = author;
+        this.#pages = pages;
+        this.#isRead = isRead;
+    }
+
+    get title(){
+        return this.#title;
+    }
+
+    get author(){
+        return this.#author;
+    }
+
+    get pages(){
+        return this.#pages;
+    }
+
+    get isRead(){
+        return this.#isRead;
+    }
 }
 
 function addBookToLibrary(title, author, pages, isRead){
