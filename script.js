@@ -4,6 +4,7 @@ const showDialog = document.querySelector('.show-add-dialog');
 const closeButton = document.querySelector('.close');
 const dialog = document.querySelector('dialog');
 const inputs = document.querySelectorAll('input');
+const errorMessage = document.querySelector('#error');
 
 
 
@@ -131,16 +132,24 @@ showDialog.addEventListener('click', ()=>{
 });
 
 addButton.addEventListener('click', ()=>{
-    const title = document.querySelector('#title').value;
-    const author = document.querySelector('#author').value;
-    const pages = document.querySelector('#pages').value;
+    const title = document.querySelector('#title');
+    const author = document.querySelector('#author');
+    const pages = document.querySelector('#pages');
     const isRead = document.querySelector('#read').checked;
-    console.log(isRead);
+    
+    if(!title.checkValidity() || !author.checkValidity() || !pages.checkValidity()){
+        errorMessage.innerHTML = "Please fill the fields";
+    }
 
-    addBookToLibrary(title, author, pages, isRead);
-    inputs.forEach((input)=>{
-        input.value = '';
-    })
-    dialog.close();
-    displayBookInfo();
+    else {
+        errorMessage.innerHTML = "";
+        addBookToLibrary(title.value, author.value, pages.value, isRead);
+        inputs.forEach((input)=>{
+            input.value = '';
+        })
+        dialog.close();
+        displayBookInfo();
+    }
+
+        
 });
